@@ -24,11 +24,29 @@ keys = [
         [mod], "a", lazy.spawn("rofi -show drun"), desc="open rofi as drun"
     ),
     Key(
-        [mod], "b", lazy.spawn("firefox")
-    ),
-    Key(
         [mod], "t", lazy.spawn("alacritty")
     ),
+    # Layout
+    Key(
+        [mod, "shift"], "n", lazy.next_layout(), desc="change layout next"
+    ),
+
+    # Switch To Window
+    Key(
+        [mod, "shift"], "Right", lazy.group.next_window(), desc="next window"
+    ),
+    Key(
+        [mod, "shift"], "Left", lazy.group.prev_window(), desc="prev window"
+    ),
+    Key(
+        [mod, "shift"], "Up", lazy.layout.increase_ratio(), desc="increase ratio"
+    ),
+    Key(
+        [mod, "shift"], "Down", lazy.layout.decrease_ratio(), desc="decrease ratio"
+    ),
+    Key(
+        [mod], "q", lazy.window.kill(), desc="Quit Window"
+    )
 ]
 
 groups = [
@@ -79,11 +97,9 @@ for i in groups:
 
 layouts = [
     layout.Floating(
-        border_focus="",
-        border_normal="",
-        border_width="",
-        fullscreen_border_width="",
-        max_border_width=""
+        border_focus="#8fd6f5",
+        border_normal="#1c314f",
+        border_width=3,
     ),
     layout.Max(),
 ]
@@ -272,7 +288,6 @@ screens = [
                     padding=0
                 ),
                 widget.Sep(
-                    foreground="",
                     linewidth=5
                 ),
             ],
@@ -300,17 +315,6 @@ dgroups_app_rules = []
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-floating_layout = layout.Floating(
-    float_rules=[
-        *layout.Floating.default_float_rules,
-        Match(wm_class="confirmreset"),  # gitk
-        Match(wm_class="makebranch"),  # gitk
-        Match(wm_class="maketag"),  # gitk
-        Match(wm_class="ssh-askpass"),  # ssh-askpass
-        Match(title="branchdialog"),  # gitk
-        Match(title="pinentry"),  # GPG key password entry
-    ]
-)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
