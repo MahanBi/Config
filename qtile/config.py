@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from libqtile import bar, layout, widget, hook
+from libqtile import bar, layout, widget, hook, extension
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
@@ -46,6 +46,16 @@ keys = [
     ),
     Key(
         [mod], "q", lazy.window.kill(), desc="Quit Window"
+    ),
+    Key(
+        [mod], "l", lazy.run_extension(extension.WindowList(
+            dmenu_bottom=True,
+            background="#212d3c",
+            foreground="#6cb0dc",
+            item_format="{window}",
+            selected_background="#4a739d",
+            selected_foreground="#b3e0f6",
+        ))
     )
 ]
 
@@ -286,6 +296,10 @@ screens = [
                     fontsize=25,
                     foreground="#313d5a",
                     padding=0
+                ),
+
+                widget.Spacer(
+                    length=20,
                 ),
                 widget.Sep(
                     linewidth=5
